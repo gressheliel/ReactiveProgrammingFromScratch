@@ -10,14 +10,21 @@ public class Lec08Parallel {
     private static final Logger log = LoggerFactory.getLogger(Lec08Parallel.class);
 
     public static void main(String[] args) {
-        long start = System.currentTimeMillis();
+        /***
+         * Parallel processing
+         *  - parallel() : to make the flux parallel
+         *  - runOn(Schedulers.parallel()) : to run on parallel scheduler
+         *  - map() : to process each element
+         *  - subscribe() : to consume the elements
+         */
+
+
         Flux.range(1,10)
                 .parallel()
                 .runOn(Schedulers.parallel())
                 .map(Lec08Parallel::process)
                 .subscribe(i -> log.info("received {}", i));
 
-        log.info("Total time {}", (System.currentTimeMillis() - start));
         Util.sleepSeconds(7);
     }
 
